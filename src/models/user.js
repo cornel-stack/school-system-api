@@ -8,9 +8,9 @@ const userSchema = new mongoose.Schema({
         trim: true,
         maxlength: [50, "First name cannot exceed 50 characters"]
     },
-    lastname: {
+    lastName: {
         type: String,
-        required: [true, "First name is required"],
+        required: [true, "Last name is required"],
         trim: true,
         maxlength: [50, "First name cannot exceed 50 characters"]
     },
@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.virtual("fullName").get(function() {
-    return `${this.firstName} ${this.lastname}`;    
+    return `${this.firstName} ${this.lastName}`;    
 });
 
 

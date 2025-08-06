@@ -4,6 +4,8 @@ dotenv.config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/userRoutes');
+
 
 
 const app = express();
@@ -15,6 +17,8 @@ app.get('/', (req, res) => {
   console.log('Root route accessed');
   res.json({ message: 'Welcome to the School System API!' });
 });
+
+app.use('/api/users', userRoutes);
 
 // Connect to MongoDB
 
