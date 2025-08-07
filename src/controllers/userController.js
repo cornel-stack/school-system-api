@@ -88,3 +88,27 @@ exports.loginUser = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 }
+
+// Get User by ID
+exports.getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        //Handle field limiting
+        const fields = req.query.fields ? req.query.fields.split(',').reduce((obj, field) => {
+            if (field === "name") {
+                field = "fullName";
+            }   
+            return obj;
+        }, {}) : null;
+
+        const result = fields ? await User.findById(req.params.id).select(fields) : user;
+
+        res.json(result)
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+}
