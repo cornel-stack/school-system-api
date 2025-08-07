@@ -29,6 +29,16 @@ const registerValidation = [
         .isString().withMessage('Student ID must be a string'),
 ]
 
+const loginValidation = [   
+    body('email')
+        .isEmail().withMessage('Invalid email format'),
+    body('password')
+        .notEmpty().withMessage('Password is required')
+];
+
+// Route to handle user login
+router.post('/login', loginValidation, userController.loginUser);
+
 // Register a new user
 router.post('/register', registerValidation, userController.registerUser);
 
